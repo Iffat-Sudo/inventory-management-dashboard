@@ -6,6 +6,7 @@ import Products from './pages/Products/Products';
 import ProductDetails from './pages/ProductDetails/ProductDetails';
 import Suppliers from './pages/Suppliers/Suppliers';
 import PurchaseOrders from './pages/PurchaseOrders/PurchaseOrders';
+import AddProduct from './pages/AddProduct/AddProduct';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/products" element={<Products />} />
+              <Route path="/products/new" element={<AddProduct />} />
               <Route path="/products/:id" element={<ProductDetails />} />
               <Route path="/suppliers" element={<Suppliers />} />
               <Route path="/orders" element={<PurchaseOrders />} />
