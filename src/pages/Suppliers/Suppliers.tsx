@@ -1,7 +1,11 @@
+
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
   Box,
   Typography,
+  Button,
+  Stack,
   Table,
   TableHead,
   TableBody,
@@ -17,9 +21,14 @@ function Suppliers() {
 
   return (
     <Box>
-      <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 3 }}>
-        Suppliers
-      </Typography>
+      <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+        <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+          Suppliers
+        </Typography>
+        <Button component={Link} to="/suppliers/new" variant="contained">
+          + Add Supplier
+        </Button>
+      </Stack>
 
       {suppliers.length === 0 ? (
         <Typography color="text.secondary">No suppliers found.</Typography>
@@ -32,6 +41,7 @@ function Suppliers() {
                 <TableCell>Email</TableCell>
                 <TableCell>Phone</TableCell>
                 <TableCell>Address</TableCell>
+                <TableCell>Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -41,6 +51,11 @@ function Suppliers() {
                   <TableCell>{supplier.contactEmail}</TableCell>
                   <TableCell>{supplier.phone}</TableCell>
                   <TableCell>{supplier.address}</TableCell>
+                  <TableCell>
+                    <Button component={Link} to={`/suppliers/${supplier.id}/edit`} variant="contained" size="small">
+                      Edit
+                    </Button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
