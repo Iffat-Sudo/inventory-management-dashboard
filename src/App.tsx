@@ -16,7 +16,7 @@ function App() {
         <Sidebar />
         <div style={{ flex: 1 }}>
           <Navbar />
-          <div style={{ padding: '20px' }}>
+          <div style={{ padding: '20px', marginTop: '64px' }}>
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/products" element={<Products />} />

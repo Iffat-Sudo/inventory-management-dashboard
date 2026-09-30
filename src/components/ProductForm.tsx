@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { useSelector } from 'react-redux';
+import { TextField, MenuItem, Button, Paper, Stack, Typography } from '@mui/material';
 import type { RootState } from '../store';
 import type { Product } from '../store/productsSlice';
 
@@ -20,16 +21,6 @@ const emptyProduct: ProductFormData = {
   price: 0,
   currentStock: 0,
   minStockLevel: 0,
-};
-
-const inputStyle = {
-  display: 'block',
-  width: '100%',
-  padding: '8px',
-  marginTop: '4px',
-  border: '1px solid #cbd5e1',
-  borderRadius: '4px',
-  boxSizing: 'border-box' as const,
 };
 
 function ProductForm({ initialValues = emptyProduct, submitLabel, onSubmit }: ProductFormProps) {
@@ -66,71 +57,78 @@ function ProductForm({ initialValues = emptyProduct, submitLabel, onSubmit }: Pr
   };
 
   return (
-    <form
+    <Paper
+      component="form"
       onSubmit={handleSubmit}
-      style={{
-        backgroundColor: 'white',
-        border: '1px solid #e2e8f0',
-        borderRadius: '8px',
-        padding: '20px',
-        maxWidth: '500px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '14px',
-      }}
+      variant="outlined"
+      sx={{ p: 3, maxWidth: 500 }}
     >
-      <label>
-        Name
-        <input style={inputStyle} value={form.name} onChange={(e) => handleChange('name', e.target.value)} />
-      </label>
-      <label>
-        SKU
-        <input style={inputStyle} value={form.sku} onChange={(e) => handleChange('sku', e.target.value)} />
-      </label>
-      <label>
-        Category
-        <input style={inputStyle} value={form.category} onChange={(e) => handleChange('category', e.target.value)} />
-      </label>
-      <label>
-        Supplier
-        <select style={inputStyle} value={form.supplier} onChange={(e) => handleChange('supplier', e.target.value)}>
-          <option value="">Choose a supplier</option>
+      <Stack spacing={2}>
+        <TextField
+          label="Name"
+          value={form.name}
+          onChange={(e) => handleChange('name', e.target.value)}
+          fullWidth
+        />
+        <TextField
+          label="SKU"
+          value={form.sku}
+          onChange={(e) => handleChange('sku', e.target.value)}
+          fullWidth
+        />
+        <TextField
+          label="Category"
+          value={form.category}
+          onChange={(e) => handleChange('category', e.target.value)}
+          fullWidth
+        />
+        <TextField
+          select
+          label="Supplier"
+          value={form.supplier}
+          onChange={(e) => handleChange('supplier', e.target.value)}
+          fullWidth
+        >
+          <MenuItem value="">Choose a supplier</MenuItem>
           {suppliers.map((s) => (
-            <option key={s.id} value={s.name}>
+            <MenuItem key={s.id} value={s.name}>
               {s.name}
-            </option>
+            </MenuItem>
           ))}
-        </select>
-      </label>
-      <label>
-        Price (SEK)
-        <input type="number" style={inputStyle} value={form.price} onChange={(e) => handleChange('price', e.target.value)} />
-      </label>
-      <label>
-        Current stock
-        <input type="number" style={inputStyle} value={form.currentStock} onChange={(e) => handleChange('currentStock', e.target.value)} />
-      </label>
-      <label>
-        Minimum stock level
-        <input type="number" style={inputStyle} value={form.minStockLevel} onChange={(e) => handleChange('minStockLevel', e.target.value)} />
-      </label>
+        </TextField>
+        <TextField
+          label="Price (SEK)"
+          type="number"
+          value={form.price}
+          onChange={(e) => handleChange('price', e.target.value)}
+          fullWidth
+        />
+        <TextField
+          label="Current stock"
+          type="number"
+          value={form.currentStock}
+          onChange={(e) => handleChange('currentStock', e.target.value)}
+          fullWidth
+        />
+        <TextField
+          label="Minimum stock level"
+          type="number"
+          value={form.minStockLevel}
+          onChange={(e) => handleChange('minStockLevel', e.target.value)}
+          fullWidth
+        />
 
-      {error && <p style={{ color: '#EF4444', margin: 0 }}>{error}</p>}
+        {error && (
+          <Typography color="error" variant="body2">
+            {error}
+          </Typography>
+        )}
 
-      <button
-        type="submit"
-        style={{
-          backgroundColor: '#3B82F6',
-          color: 'white',
-          border: 'none',
-          borderRadius: '4px',
-          padding: '10px',
-          cursor: 'pointer',
-        }}
-      >
-        {submitLabel}
-      </button>
-    </form>
+        <Button type="submit" variant="contained">
+          {submitLabel}
+        </Button>
+      </Stack>
+    </Paper>
   );
 }
 

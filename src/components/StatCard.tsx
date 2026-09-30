@@ -1,3 +1,5 @@
+import { Card, CardContent, Typography } from '@mui/material';
+
 interface StatCardProps {
   title: string;
   value: number;
@@ -6,19 +8,24 @@ interface StatCardProps {
 
 function StatCard({ title, value, color }: StatCardProps) {
   return (
-    <div
-      style={{
-        backgroundColor: 'white',
-        border: `1px solid ${color}`,
-        borderRadius: '8px',
-        padding: '20px',
+    <Card
+      variant="outlined"
+      sx={{
         flex: 1,
-        minWidth: '150px',
+        minWidth: 150,
+        borderColor: color,
+        borderWidth: 1,
       }}
     >
-      <p style={{ margin: 0, color: '#64748b', fontSize: '14px' }}>{title}</p>
-      <h2 style={{ margin: '8px 0 0', color: color }}>{value}</h2>
-    </div>
+      <CardContent>
+        <Typography variant="body2" color="text.secondary">
+          {title}
+        </Typography>
+        <Typography variant="h4" sx={{ color, fontWeight: 'bold', mt: 1 }}>
+          {value}
+        </Typography>
+      </CardContent>
+    </Card>
   );
 }
 

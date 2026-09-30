@@ -1,5 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Box, Typography, Paper, Stack, Button } from '@mui/material';
 import type { RootState } from '../../store';
 
 function ProductDetails() {
@@ -9,10 +10,12 @@ function ProductDetails() {
 
   if (!product) {
     return (
-      <div>
-        <h1>Product not found</h1>
-        <Link to="/products">← Back to Products</Link>
-      </div>
+      <Box>
+        <Typography variant="h5">Product not found</Typography>
+        <Button component={Link} to="/products" sx={{ mt: 2 }}>
+          ← Back to Products
+        </Button>
+      </Box>
     );
   }
 
@@ -27,29 +30,28 @@ function ProductDetails() {
   }
 
   return (
-    <div>
-      <Link to="/products">← Back to Products</Link>
-      <h1 style={{ marginTop: '16px' }}>{product.name}</h1>
-      <p style={{ color: statusColor, fontWeight: 'bold' }}>{stockStatus}</p>
+    <Box>
+      <Button component={Link} to="/products" sx={{ mb: 2 }}>
+        ← Back to Products
+      </Button>
+      <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+        {product.name}
+      </Typography>
+      <Typography sx={{ color: statusColor, fontWeight: 'bold', mb: 2 }}>
+        {stockStatus}
+      </Typography>
 
-      <div
-        style={{
-          backgroundColor: 'white',
-          border: '1px solid #e2e8f0',
-          borderRadius: '8px',
-          padding: '20px',
-          maxWidth: '500px',
-          lineHeight: 2,
-        }}
-      >
-        <div><strong>SKU:</strong> {product.sku}</div>
-        <div><strong>Category:</strong> {product.category}</div>
-        <div><strong>Supplier:</strong> {product.supplier}</div>
-        <div><strong>Price:</strong> {product.price} SEK</div>
-        <div><strong>Current stock:</strong> {product.currentStock}</div>
-        <div><strong>Minimum stock level:</strong> {product.minStockLevel}</div>
-      </div>
-    </div>
+      <Paper variant="outlined" sx={{ p: 3, maxWidth: 500 }}>
+        <Stack spacing={1.5}>
+          <Typography><strong>SKU:</strong> {product.sku}</Typography>
+          <Typography><strong>Category:</strong> {product.category}</Typography>
+          <Typography><strong>Supplier:</strong> {product.supplier}</Typography>
+          <Typography><strong>Price:</strong> {product.price} SEK</Typography>
+          <Typography><strong>Current stock:</strong> {product.currentStock}</Typography>
+          <Typography><strong>Minimum stock level:</strong> {product.minStockLevel}</Typography>
+        </Stack>
+      </Paper>
+    </Box>
   );
 }
 

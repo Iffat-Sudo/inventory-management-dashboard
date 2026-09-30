@@ -1,16 +1,58 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { Drawer, List, ListItemButton, ListItemText, Toolbar, Typography, Box } from '@mui/material';
+
+const navItems = [
+  { label: 'Dashboard', path: '/' },
+  { label: 'Products', path: '/products' },
+  { label: 'Suppliers', path: '/suppliers' },
+  { label: 'Purchase Orders', path: '/orders' },
+];
 
 function Sidebar() {
+  const location = useLocation();
+
   return (
-    <div style={{ width: '220px', height: '100vh', backgroundColor: '#1e293b', padding: '20px', color: 'white' }}>
-      <h2 style={{ marginBottom: '30px' }}>📦 InventoryPro</h2>
-      <nav style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-        <Link to="/" style={{ color: 'white', textDecoration: 'none' }}>Dashboard</Link>
-        <Link to="/products" style={{ color: 'white', textDecoration: 'none' }}>Products</Link>
-        <Link to="/suppliers" style={{ color: 'white', textDecoration: 'none' }}>Suppliers</Link>
-        <Link to="/orders" style={{ color: 'white', textDecoration: 'none' }}>Purchase Orders</Link>
-      </nav>
-    </div>
+    <Drawer
+      variant="permanent"
+      sx={{
+        width: 220,
+        flexShrink: 0,
+        [`& .MuiDrawer-paper`]: {
+          width: 220,
+          boxSizing: 'border-box',
+          backgroundColor: '#1e293b',
+          color: 'white',
+        },
+      }}
+    >
+      <Toolbar>
+        <Typography variant="h6" noWrap>
+          📦 InventoryPro
+        </Typography>
+      </Toolbar>
+      <Box sx={{ overflow: 'auto' }}>
+        <List>
+          {navItems.map((item) => {
+            const isActive = location.pathname === item.path;
+            return (
+              <ListItemButton
+                key={item.path}
+                component={Link}
+                to={item.path}
+                selected={isActive}
+                sx={{
+                  color: 'white',
+                  '&.Mui-selected': { backgroundColor: '#334155' },
+                  '&:hover': { backgroundColor: '#334155' },
+                }}
+              >
+                <ListItemText primary={item.label} />
+              </ListItemButton>
+            );
+          })}
+        </List>
+      </Box>
+    </Drawer>
   );
 }
 

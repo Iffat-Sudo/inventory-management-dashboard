@@ -1,6 +1,21 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import {
+  Box,
+  Typography,
+  Button,
+  TextField,
+  MenuItem,
+  Stack,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  TableContainer,
+  Paper,
+} from '@mui/material';
 import type { RootState } from '../../store';
 import { deleteProduct } from '../../store/productsSlice';
 
@@ -43,120 +58,117 @@ function Products() {
   });
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h1>Products</h1>
-        <Link
-          to="/products/new"
-          style={{
-            backgroundColor: '#3B82F6',
-            color: 'white',
-            padding: '8px 16px',
-            borderRadius: '4px',
-            textDecoration: 'none',
-          }}
-        >
+    <Box>
+      <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+        <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+          Products
+        </Typography>
+        <Button component={Link} to="/products/new" variant="contained">
           + Add Product
-        </Link>
-      </div>
+        </Button>
+      </Stack>
 
-      <div style={{ display: 'flex', gap: '12px', margin: '20px 0', flexWrap: 'wrap' }}>
-        <input
-          type="text"
-          placeholder="Search by name..."
+      <Stack direction="row" spacing={2} sx={{ mb: 3, flexWrap: 'wrap' }}>
+        <TextField
+          label="Search by name"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          style={{ padding: '8px', border: '1px solid #cbd5e1', borderRadius: '4px', minWidth: '200px' }}
+          size="small"
+          sx={{ minWidth: 220 }}
         />
-        <select
+        <TextField
+          select
+          label="Category"
           value={categoryFilter}
           onChange={(e) => setCategoryFilter(e.target.value)}
-          style={{ padding: '8px', border: '1px solid #cbd5e1', borderRadius: '4px' }}
+          size="small"
+          sx={{ minWidth: 160 }}
         >
           {categories.map((c) => (
-            <option key={c} value={c}>{c}</option>
+            <MenuItem key={c} value={c}>{c}</MenuItem>
           ))}
-        </select>
-        <select
+        </TextField>
+        <TextField
+          select
+          label="Stock level"
           value={stockFilter}
           onChange={(e) => setStockFilter(e.target.value)}
-          style={{ padding: '8px', border: '1px solid #cbd5e1', borderRadius: '4px' }}
+          size="small"
+          sx={{ minWidth: 160 }}
         >
-          <option value="All">All Stock Levels</option>
-          <option value="In Stock">In Stock</option>
-          <option value="Low Stock">Low Stock</option>
-          <option value="Out of Stock">Out of Stock</option>
-        </select>
-        <select
+          <MenuItem value="All">All Stock Levels</MenuItem>
+          <MenuItem value="In Stock">In Stock</MenuItem>
+          <MenuItem value="Low Stock">Low Stock</MenuItem>
+          <MenuItem value="Out of Stock">Out of Stock</MenuItem>
+        </TextField>
+        <TextField
+          select
+          label="Sort by"
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value)}
-          style={{ padding: '8px', border: '1px solid #cbd5e1', borderRadius: '4px' }}
+          size="small"
+          sx={{ minWidth: 200 }}
         >
-          <option value="name">Sort: Name (A-Z)</option>
-          <option value="priceLow">Sort: Price (Low to High)</option>
-          <option value="priceHigh">Sort: Price (High to Low)</option>
-        </select>
-      </div>
+          <MenuItem value="name">Name (A-Z)</MenuItem>
+          <MenuItem value="priceLow">Price (Low to High)</MenuItem>
+          <MenuItem value="priceHigh">Price (High to Low)</MenuItem>
+        </TextField>
+      </Stack>
 
       {visibleProducts.length === 0 ? (
-        <p>No products match your search or filters.</p>
+        <Typography color="text.secondary">No products match your search or filters.</Typography>
       ) : (
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-          <thead>
-            <tr style={{ borderBottom: '2px solid #e2e8f0', textAlign: 'left' }}>
-              <th style={{ padding: '10px' }}>Name</th>
-              <th style={{ padding: '10px' }}>SKU</th>
-              <th style={{ padding: '10px' }}>Category</th>
-              <th style={{ padding: '10px' }}>Supplier</th>
-              <th style={{ padding: '10px' }}>Price (SEK)</th>
-              <th style={{ padding: '10px' }}>Stock</th>
-              <th style={{ padding: '10px' }}>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {visibleProducts.map((product) => (
-              <tr key={product.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                <td style={{ padding: '10px' }}>
-                  <Link to={`/products/${product.id}`}>{product.name}</Link>
-                </td>
-                <td style={{ padding: '10px' }}>{product.sku}</td>
-                <td style={{ padding: '10px' }}>{product.category}</td>
-                <td style={{ padding: '10px' }}>{product.supplier}</td>
-                <td style={{ padding: '10px' }}>{product.price}</td>
-                <td style={{ padding: '10px' }}>{product.currentStock}</td>
-                <td style={{ padding: '10px', display: 'flex', gap: '8px' }}>
-                  <Link
-                    to={`/products/${product.id}/edit`}
-                    style={{
-                      backgroundColor: '#3B82F6',
-                      color: 'white',
-                      padding: '6px 12px',
-                      borderRadius: '4px',
-                      textDecoration: 'none',
-                    }}
-                  >
-                    Edit
-                  </Link>
-                  <button
-                    onClick={() => handleDelete(product.id, product.name)}
-                    style={{
-                      backgroundColor: '#EF4444',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '4px',
-                      padding: '6px 12px',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <TableContainer component={Paper} variant="outlined">
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell>SKU</TableCell>
+                <TableCell>Category</TableCell>
+                <TableCell>Supplier</TableCell>
+                <TableCell>Price (SEK)</TableCell>
+                <TableCell>Stock</TableCell>
+                <TableCell>Actions</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {visibleProducts.map((product) => (
+                <TableRow key={product.id}>
+                  <TableCell>
+                    <Link to={`/products/${product.id}`}>{product.name}</Link>
+                  </TableCell>
+                  <TableCell>{product.sku}</TableCell>
+                  <TableCell>{product.category}</TableCell>
+                  <TableCell>{product.supplier}</TableCell>
+                  <TableCell>{product.price}</TableCell>
+                  <TableCell>{product.currentStock}</TableCell>
+                  <TableCell>
+                    <Stack direction="row" spacing={1}>
+                      <Button
+                        component={Link}
+                        to={`/products/${product.id}/edit`}
+                        variant="contained"
+                        size="small"
+                      >
+                        Edit
+                      </Button>
+                      <Button
+                        onClick={() => handleDelete(product.id, product.name)}
+                        variant="contained"
+                        color="error"
+                        size="small"
+                      >
+                        Delete
+                      </Button>
+                    </Stack>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       )}
-    </div>
+    </Box>
   );
 }
 

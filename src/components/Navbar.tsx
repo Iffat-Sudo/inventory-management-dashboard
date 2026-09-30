@@ -1,19 +1,28 @@
+import { AppBar, Toolbar, Typography, Box, Avatar } from '@mui/material';
+
 function Navbar() {
   return (
-    <div
-      style={{
-        height: '60px',
+    <AppBar
+      position="fixed"
+      sx={{
         backgroundColor: '#f8fafc',
+        color: '#0f172a',
+        boxShadow: 'none',
         borderBottom: '1px solid #e2e8f0',
-        display: 'flex',
-        alignItems: 'center',
-        padding: '0 20px',
-        justifyContent: 'space-between',
+        width: `calc(100% - 220px)`,
+        ml: '220px',
       }}
     >
-      <h3 style={{ margin: 0 }}>Inventory Management Dashboard</h3>
-      <div>👤 Iffat</div>
-    </div>
+      <Toolbar sx={{ justifyContent: 'space-between' }}>
+        <Typography variant="h6" noWrap>
+          Inventory Management Dashboard
+        </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Avatar sx={{ width: 32, height: 32, bgcolor: '#3B82F6' }}>I</Avatar>
+          <Typography>Iffat</Typography>
+        </Box>
+      </Toolbar>
+    </AppBar>
   );
 }
 
