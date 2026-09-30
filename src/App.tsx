@@ -10,6 +10,7 @@ import AddProduct from "./pages/AddProduct/AddProduct";
 import EditProduct from "./pages/EditProduct/EditProduct";
 import AddSupplier from "./pages/AddSupplier/AddSupplier";
 import EditSupplier from "./pages/EditSupplier/EditSupplier";
+import AddOrder from './pages/AddOrder/AddOrder';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
               <Route path="/suppliers/new" element={<AddSupplier />} />
               <Route path="/suppliers/:id/edit" element={<EditSupplier />} />
               <Route path="/orders" element={<PurchaseOrders />} />
+              <Route path="/orders/new" element={<AddOrder />} />
             </Routes>
           </div>
         </div>

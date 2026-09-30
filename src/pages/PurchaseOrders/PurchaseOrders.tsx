@@ -1,8 +1,10 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import {
   Box,
   Typography,
   Chip,
+  Button,
+  Stack,
   Table,
   TableHead,
   TableBody,
@@ -10,13 +12,14 @@ import {
   TableCell,
   TableContainer,
   Paper,
-} from '@mui/material';
-import type { RootState } from '../../store';
+} from "@mui/material";
+import { Link } from "react-router-dom";
+import type { RootState } from "../../store";
 
-function getStatusColor(status: string): 'warning' | 'info' | 'success' {
-  if (status === 'pending') return 'warning';
-  if (status === 'shipped') return 'info';
-  return 'success';
+function getStatusColor(status: string): "warning" | "info" | "success" {
+  if (status === "pending") return "warning";
+  if (status === "shipped") return "info";
+  return "success";
 }
 
 function PurchaseOrders() {
@@ -24,12 +27,22 @@ function PurchaseOrders() {
 
   return (
     <Box>
-      <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 3 }}>
-        Purchase Orders
-      </Typography>
+      <Stack
+        direction="row"
+        sx={{ justifyContent: "space-between", alignItems: "center", mb: 3 }}
+      >
+        <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+          Purchase Orders
+        </Typography>
+        <Button component={Link} to="/orders/new" variant="contained">
+          + Add Order
+        </Button>
+      </Stack>
 
       {orders.length === 0 ? (
-        <Typography color="text.secondary">No purchase orders found.</Typography>
+        <Typography color="text.secondary">
+          No purchase orders found.
+        </Typography>
       ) : (
         <TableContainer component={Paper} variant="outlined">
           <Table>
@@ -52,7 +65,7 @@ function PurchaseOrders() {
                       label={order.status}
                       color={getStatusColor(order.status)}
                       size="small"
-                      sx={{ textTransform: 'capitalize' }}
+                      sx={{ textTransform: "capitalize" }}
                     />
                   </TableCell>
                   <TableCell>{order.orderValue}</TableCell>
