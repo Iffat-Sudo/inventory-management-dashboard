@@ -33,7 +33,7 @@ function Suppliers() {
       {suppliers.length === 0 ? (
         <Typography color="text.secondary">No suppliers found.</Typography>
       ) : (
-        <TableContainer component={Paper} variant="outlined">
+        <TableContainer component={Paper} variant="outlined" sx={{ overflowX: 'auto' }}>
           <Table>
             <TableHead>
               <TableRow>

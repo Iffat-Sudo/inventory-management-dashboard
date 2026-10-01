@@ -8,51 +8,84 @@ const navItems = [
   { label: 'Purchase Orders', path: '/orders' },
 ];
 
-function Sidebar() {
+interface SidebarProps {
+  mobileOpen: boolean;
+  onClose: () => void;
+}
+
+function Sidebar({ mobileOpen, onClose }: SidebarProps) {
   const location = useLocation();
 
-  return (
-    <Drawer
-      variant="permanent"
-      sx={{
-        width: 220,
-        flexShrink: 0,
-        [`& .MuiDrawer-paper`]: {
-          width: 220,
-          boxSizing: 'border-box',
-          backgroundColor: '#1e293b',
-          color: 'white',
-        },
-      }}
-    >
+  const drawerContent = (
+    <Box>
       <Toolbar>
         <Typography variant="h6" noWrap>
           📦 InventoryPro
         </Typography>
       </Toolbar>
-      <Box sx={{ overflow: 'auto' }}>
-        <List>
-          {navItems.map((item) => {
-            const isActive = location.pathname === item.path;
-            return (
-              <ListItemButton
-                key={item.path}
-                component={Link}
-                to={item.path}
-                selected={isActive}
-                sx={{
-                  color: 'white',
-                  '&.Mui-selected': { backgroundColor: '#334155' },
-                  '&:hover': { backgroundColor: '#334155' },
-                }}
-              >
-                <ListItemText primary={item.label} />
-              </ListItemButton>
-            );
-          })}
-        </List>
-      </Box>
-    </Drawer>
+      <List>
+        {navItems.map((item) => {
+          const isActive = location.pathname === item.path;
+          return (
+            <ListItemButton
+              key={item.path}
+              component={Link}
+              to={item.path}
+              selected={isActive}
+              onClick={onClose}
+              sx={{
+                color: 'white',
+                '&.Mui-selected': { backgroundColor: '#334155' },
+                '&:hover': { backgroundColor: '#334155' },
+              }}
+            >
+              <ListItemText primary={item.label} />
+            </ListItemButton>
+          );
+        })}
+      </List>
+    </Box>
+  );
+
+  return (
+    <>
+      {/* Mobile: overlay drawer that opens/closes */}
+      <Drawer
+        variant="temporary"
+        open={mobileOpen}
+        onClose={onClose}
+        ModalProps={{ keepMounted: true }}
+        sx={{
+          display: { xs: 'block', sm: 'none' },
+          [`& .MuiDrawer-paper`]: {
+            width: 220,
+            boxSizing: 'border-box',
+            backgroundColor: '#1e293b',
+            color: 'white',
+          },
+        }}
+      >
+        {drawerContent}
+      </Drawer>
+
+      {/* Desktop: always-visible sidebar */}
+      <Drawer
+        variant="permanent"
+        sx={{
+          display: { xs: 'none', sm: 'block' },
+          width: 220,
+          flexShrink: 0,
+          [`& .MuiDrawer-paper`]: {
+            width: 220,
+            boxSizing: 'border-box',
+            backgroundColor: '#1e293b',
+            color: 'white',
+          },
+        }}
+      >
+        {drawerContent}
+      </Drawer>
+    </>
   );
 }
 

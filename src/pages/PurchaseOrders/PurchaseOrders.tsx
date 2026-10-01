@@ -44,7 +44,7 @@ function PurchaseOrders() {
           No purchase orders found.
         </Typography>
       ) : (
-        <TableContainer component={Paper} variant="outlined">
+        <TableContainer component={Paper} variant="outlined" sx={{ overflowX: 'auto' }}>
           <Table>
             <TableHead>
               <TableRow>

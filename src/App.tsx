@@ -1,25 +1,32 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Sidebar from "./components/Sidebar";
-import Dashboard from "./pages/Dashboard/Dashboard";
-import Products from "./pages/Products/Products";
-import ProductDetails from "./pages/ProductDetails/ProductDetails";
-import Suppliers from "./pages/Suppliers/Suppliers";
-import PurchaseOrders from "./pages/PurchaseOrders/PurchaseOrders";
-import AddProduct from "./pages/AddProduct/AddProduct";
-import EditProduct from "./pages/EditProduct/EditProduct";
-import AddSupplier from "./pages/AddSupplier/AddSupplier";
-import EditSupplier from "./pages/EditSupplier/EditSupplier";
+import { useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Sidebar from './components/Sidebar';
+import Dashboard from './pages/Dashboard/Dashboard';
+import Products from './pages/Products/Products';
+import AddProduct from './pages/AddProduct/AddProduct';
+import EditProduct from './pages/EditProduct/EditProduct';
+import ProductDetails from './pages/ProductDetails/ProductDetails';
+import Suppliers from './pages/Suppliers/Suppliers';
+import AddSupplier from './pages/AddSupplier/AddSupplier';
+import EditSupplier from './pages/EditSupplier/EditSupplier';
+import PurchaseOrders from './pages/PurchaseOrders/PurchaseOrders';
 import AddOrder from './pages/AddOrder/AddOrder';
 
 function App() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
   return (
     <BrowserRouter>
-      <div style={{ display: "flex" }}>
-        <Sidebar />
+      <div style={{ display: 'flex' }}>
+        <Sidebar mobileOpen={mobileOpen} onClose={() => setMobileOpen(false)} />
         <div style={{ flex: 1 }}>
-          <Navbar />
-          <div style={{ padding: "20px", marginTop: "64px" }}>
+          <Navbar onMenuClick={handleDrawerToggle} />
+          <div style={{ padding: '20px', marginTop: '64px' }}>
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/products" element={<Products />} />

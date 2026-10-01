@@ -118,7 +118,7 @@ function Products() {
       {visibleProducts.length === 0 ? (
         <Typography color="text.secondary">No products match your search or filters.</Typography>
       ) : (
-        <TableContainer component={Paper} variant="outlined">
+        <TableContainer component={Paper} variant="outlined" sx={{ overflowX: 'auto' }}>
           <Table>
             <TableHead>
               <TableRow>
