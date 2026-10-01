@@ -6,11 +6,24 @@ The project is inspired by real-world inventory and supply-chain workflows and f
 
 ## 🚀 Live Demo
 
-🔗 Coming soon
+🔗 [https://inventory-management-dashboard-xi.vercel.app](https://inventory-management-dashboard-xi.vercel.app)
 
 ## 📸 Screenshots
 
-Coming soon
+**Dashboard**
+![Dashboard](./screenshots/dashboard.png)
+
+**Products**
+![Products](./screenshots/products.png)
+
+**Add Product**
+![Add Product](./screenshots/add_product.png)
+
+**Suppliers**
+![Suppliers](./screenshots/suppliers.png)
+
+**Purchase Orders**
+![Purchase Orders](./screenshots/purchase_orders.png)
 
 ## 🎯 Project Goal
 
@@ -24,73 +37,41 @@ The goal of this project is to build a professional inventory management interfa
 - Search, filter, and sort inventory data
 - View product and stock details
 
-The application is **frontend-only** and currently uses mock/local data to simulate real business data and API responses.
+The application is **frontend-only** and currently uses mock/local data (Redux state) to simulate real business data and API responses.
 
 ## ✨ Features
 
 ### 📊 Dashboard
 
-- Total number of products
-- In-stock products
-- Low-stock products
-- Out-of-stock products
-- Inventory overview
-- Stock movement information
-- Recently added products
-- Recent inventory activity
+- Total, in-stock, low-stock, and out-of-stock product counts
+- Bar chart of stock levels by product (Recharts)
+- Recently added products list
 
 ### 📦 Product Management
 
-- View all products
-- Search products
-- Filter by category
-- Filter by stock status
-- Sort products
-- Add new products
-- Edit existing products
-- Delete products
+- View, search, filter, and sort products
+- Add, edit, and delete products
+- Form validation
 - View detailed product information
-
-### 📋 Product Details
-
-Each product can display:
-
-- Product name
-- SKU
-- Category
-- Supplier
-- Price
-- Current stock
-- Minimum stock level
-- Stock history
 
 ### 🏢 Supplier Management
 
 - View suppliers
-- Search suppliers
-- View supplier information
-- See products associated with each supplier
 - Add and edit supplier information
 
 ### 🚚 Purchase Orders
 
 - View purchase orders
-- Order status
-- Supplier information
-- Order value
-- Order details
-- Pending, shipped, and received statuses
+- Create new purchase orders
+- Color-coded order status (pending, shipped, received)
 
 ### 🔎 User Experience
 
-- Responsive design
+- Fully responsive design, with a collapsible mobile menu and horizontally scrollable tables on small screens
 - Search and filtering
 - Form validation
-- Loading states
 - Empty states
-- Error states
-- Confirmation dialogs
-- Success notifications
+- Confirmation dialogs for deletions
 
 ## 🛠️ Technologies
 
@@ -100,10 +81,8 @@ Each product can display:
 - **Redux Toolkit** (state management)
 - **Material UI**
 - **React Router**
-- **Axios**
 - **Recharts**
-- **CSS**
-- **Mock JSON / Local Data**
+- **Mock data (Redux state)**
 
 ## 🏗️ Project Structure
 
@@ -111,30 +90,30 @@ Each product can display:
 src/
 │
 ├── components/
-│   ├── Navbar/
-│   ├── Sidebar/
-│   ├── StatCard/
-│   ├── ProductTable/
-│   └── SearchBar/
+│   ├── Navbar.tsx
+│   ├── Sidebar.tsx
+│   ├── StatCard.tsx
+│   ├── ProductForm.tsx
+│   ├── SupplierForm.tsx
+│   └── OrderForm.tsx
 │
 ├── pages/
 │   ├── Dashboard/
 │   ├── Products/
+│   ├── AddProduct/
+│   ├── EditProduct/
 │   ├── ProductDetails/
 │   ├── Suppliers/
-│   └── PurchaseOrders/
+│   ├── AddSupplier/
+│   ├── EditSupplier/
+│   ├── PurchaseOrders/
+│   └── AddOrder/
 │
 ├── store/
 │   ├── index.ts
 │   ├── productsSlice.ts
 │   ├── suppliersSlice.ts
 │   └── ordersSlice.ts
-│
-├── services/
-│   └── inventoryAPI.ts
-│
-├── data/
-│   └── products.json
 │
 ├── App.tsx
 └── main.tsx
@@ -145,7 +124,7 @@ src/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/inventory-management-dashboard.git
+git clone https://github.com/Iffat-Sudo/inventory-management-dashboard.git
 ```
 
 ### 2. Navigate to the project
@@ -170,42 +149,34 @@ The application will be available at the local development URL shown in the term
 
 ## 📱 Responsive Design
 
-The application is designed to provide a consistent experience across:
+The application provides a consistent experience across desktop, tablet, and mobile:
 
-- 💻 Desktop
-- 📱 Mobile
-- 📲 Tablet
+- A permanent sidebar on desktop/tablet, replaced by a collapsible mobile drawer on small screens
+- Tables scroll horizontally on narrow screens so no data is hidden
 
 ## 🔮 Future Improvements
 
 The project is currently frontend-only. Possible future improvements include:
 
-- Connect to a REST API
+- Connect to a REST API or real backend
 - Add authentication and user roles
-- Integrate a real database
-- Add real-time inventory updates
+- Add delete for suppliers and edit for purchase orders
 - Add CSV/Excel import and export
-- Add advanced inventory analytics
-- Add barcode scanning
 - Add notifications for low-stock products
-- Integrate with an ERP or inventory backend
 
 ## 📚 What I Practiced
 
 This project focuses on practical frontend development skills, including:
 
-- Building reusable React components
+- Building reusable React components with props (forms reused across Add/Edit flows)
 - Using TypeScript for type-safe frontend development
-- Managing application state with Redux Toolkit
+- Managing global application state with Redux Toolkit
 - Working with forms and validation
-- Implementing CRUD-style interfaces
-- Creating responsive layouts
-- Working with tables and dashboards
-- Filtering and searching data
-- Routing between application pages
-- Handling loading, empty, and error states
-- Designing user-friendly business interfaces
-- Structuring a scalable frontend project
+- Implementing full CRUD-style interfaces
+- Creating responsive, mobile-friendly layouts
+- Data visualization with Recharts
+- Routing between application pages, including dynamic routes
+- Deploying a live application with Vercel
 
 ## 👩‍💻 About the Project
 
