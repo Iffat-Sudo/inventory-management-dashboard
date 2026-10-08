@@ -1,5 +1,7 @@
 # 📦 Inventory Management Dashboard
 
+[![CI](https://github.com/Iffat-Sudo/inventory-management-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/Iffat-Sudo/inventory-management-dashboard/actions/workflows/ci.yml)
+
 A responsive **frontend inventory management dashboard** designed for small businesses to monitor products, stock levels, suppliers, and purchase orders.
 
 The project is inspired by real-world inventory and supply-chain workflows and focuses on creating a practical, user-friendly business application using modern frontend technologies.
@@ -177,6 +179,7 @@ This project focuses on practical frontend development skills, including:
 - Data visualization with Recharts
 - Routing between application pages, including dynamic routes
 - Deploying a live application with Vercel
+- Setting up a CI pipeline with GitHub Actions (lint and build on every push)
 
 ## 👩‍💻 About the Project
 
